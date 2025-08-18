@@ -155,7 +155,16 @@ Current:            €10-15/month
 Savings:            75% reduction
 ```
 
-## 🛠️ Tech Stack
+## 🛠️ Tech Stack & Architecture
+
+### The "Nebenprodukte" (Side Products)
+Projects that started as utilities but became essential infrastructure:
+
+#### [AI Provider Factory](https://github.com/patrickmauro/ai-provider-factory)
+- **What it is**: Database-driven AI orchestration system
+- **Why it exists**: Managing 5+ AI providers was chaos
+- **Impact**: 68% cost reduction, 99.9% reliability
+- **Scale**: 15,000+ requests/day across 44 models
 
 ### Frontend
 - **React 18.3** with TypeScript 5.3
@@ -165,11 +174,11 @@ Savings:            75% reduction
 - **i18next** for internationalization
 
 ### Backend Services
-- **Railway**: Microservices hosting
+- **Railway**: Microservices hosting (7 specialized services)
 - **Inngest**: Event-driven orchestration
 - **Supabase**: PostgreSQL + Auth + Storage
 - **Upstash Redis**: Pub/Sub for SSE
-- **Multiple AI Providers**: OpenAI, Google AI, ElevenLabs
+- **AI Providers**: Unified through AI Provider Factory
 
 ## 📁 Repository Structure
 
@@ -192,8 +201,8 @@ assets/                   # Screenshots and diagrams
 - [User Choice System](./docs/innovations/story-template-system.md#user-choice-system) - Real branching narratives with permanent consequences
 
 ### Technical Architecture  
+- [AI Provider Factory](./docs/architecture/ai-provider-factory.md) - **The "Nebenprodukt"** - Database-driven AI orchestration system
 - [Microservices Evolution](./docs/architecture/microservices-evolution.md) - From Edge Functions to Railway
-- [Multi-Provider Strategy](./docs/architecture/multi-provider-strategy.md) - Why we use 5 cloud providers
 - [SmartButton Pattern](./docs/code-samples/smart-button/README.md) - UX pattern eliminating toast chaos
 
 ## 💭 Lessons Learned
