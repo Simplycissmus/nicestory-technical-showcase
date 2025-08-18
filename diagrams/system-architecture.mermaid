@@ -1,0 +1,76 @@
+graph TB
+    subgraph "User Layer"
+        U[Users]
+        M[Mobile Users]
+    end
+    
+    subgraph "Frontend - Netlify"
+        F[React 18.3 + TypeScript]
+        PWA[PWA Service Worker]
+    end
+    
+    subgraph "API Gateway - Supabase"
+        AUTH[Supabase Auth]
+        DB[(PostgreSQL)]
+        STORAGE[Supabase Storage]
+    end
+    
+    subgraph "Processing - Railway"
+        IW[Inngest Webhook]
+        MS[Model Service]
+        CS[Content Service]
+        PDF[PDF Generator]
+        SSE[SSE Service]
+        STRIPE[Stripe Service]
+    end
+    
+    subgraph "Events - Inngest Cloud"
+        EQ[Event Queue]
+        WF[Workflows]
+    end
+    
+    subgraph "Cache - Upstash"
+        REDIS[(Redis)]
+    end
+    
+    subgraph "AI Providers"
+        OAI[OpenAI]
+        GOOGLE[Google AI]
+        ELEVEN[ElevenLabs]
+    end
+    
+    U --> F
+    M --> PWA
+    PWA --> F
+    F --> AUTH
+    F --> DB
+    F --> SSE
+    
+    AUTH --> IW
+    DB --> IW
+    
+    IW --> EQ
+    EQ --> WF
+    WF --> MS
+    WF --> CS
+    WF --> PDF
+    
+    MS --> OAI
+    MS --> GOOGLE
+    CS --> ELEVEN
+    
+    SSE --> REDIS
+    MS --> REDIS
+    CS --> REDIS
+    
+    STRIPE --> DB
+    
+    style F fill:#61dafb
+    style DB fill:#336791
+    style REDIS fill:#dc382d
+    style IW fill:#8b5cf6
+    style MS fill:#8b5cf6
+    style CS fill:#8b5cf6
+    style PDF fill:#8b5cf6
+    style SSE fill:#8b5cf6
+    style STRIPE fill:#8b5cf6

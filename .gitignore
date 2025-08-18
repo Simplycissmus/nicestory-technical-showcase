@@ -1,0 +1,37 @@
+# Dependencies
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Environment
+.env
+.env.local
+.env.production
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+.DS_Store
+
+# Build outputs
+dist/
+build/
+*.log
+
+# Sensitive data
+secrets/
+credentials/
+api-keys/
+
+# Screenshots (add manually)
+assets/screenshots/*.png
+assets/screenshots/*.jpg
+!assets/screenshots/.gitkeep
+
+# Generated diagrams
+assets/architecture-diagrams/*.svg
+assets/architecture-diagrams/*.png
+!assets/architecture-diagrams/.gitkeep
