@@ -17,32 +17,33 @@ Late nights reading about Chinese AI constraints, thinking "Pattern recognition 
 
 ## The Actual Technical Stuff (What Makes This Interesting)
 
-### 1. Dependency-Based Function Orchestration
+### 1. Template Factory: User Idea → Immutable World
 
-Not just "AI generates text" - there's a whole choreography:
+User drops ANY idea - the system builds a complete world:
 
 ```javascript
-// From refine-story-all.js - 27 functions with dependency resolution
-function groupFunctionsByDependencyLevel(functions) {
-  const levels = [];
-  const processed = new Set();
-  
-  while (processed.size < functions.length) {
-    const currentLevel = functions.filter(func => {
-      if (processed.has(func.name)) return false;
-      if (!func.dependencies) return true;
-      return func.dependencies.every(dep => processed.has(dep));
-    });
-    
-    levels.push(currentLevel);
-    currentLevel.forEach(func => processed.add(func.name));
-  }
-  
-  return levels; // Execute each level in parallel, levels in sequence
+// Step 1: JSON Schema Analysis
+{
+  core: { mainIdea, targetAudience, narrativePotential },
+  essentials: { 
+    primaryGenre, mainConflict, toneAndMood,
+    specificElements: { keyCharacters, importantSettings, uniqueConcepts }
+  },
+  structure: { suggestedAgeRating, complexity, branchingPotential }
 }
+
+// Step 2: 27 Function Refinement Pipeline
+// Level 1: Foundation
+['refine-age-and-genre']
+
+// Level 2: Core Elements (after Level 1)  
+['refine-background-info-v2', 'refine-text-content', 'refine-format-settings']
+
+// Level 3: Advanced Features (after Level 2)
+['refine-first-chapter', 'refine-narrative-style', 'refine-voice']
 ```
 
-**27 specialized functions** running in dependency-aware parallel batches. Not because it's clever, but because stories break if you do age-rating before genre analysis.
+**The Insight:** Templates ≠ User Stories. Templates are universal (in `stories` table). User stories are personal (in `user_stories_v2`). Same template → infinite personal narratives.
 
 ### 2. The 3-AI-Call Architecture
 
@@ -81,30 +82,38 @@ storyspark-content-service          ← SEO materialized views
 
 **Railway's Internal DNS**: Services talk via `http://service-name:8080` - no internet latency, no external dependencies.
 
-### 4. Universal Entity Extraction (The Actually Hard Part)
+### 4. Cultural Intelligence & Auto-Classification
 
-From `extract-story-entities.js`:
+From `language-utils.js` - stories adapt to cultural context:
 
 ```javascript
-// This works in ANY language - German, Chinese, Arabic, made-up fantasy languages
-const prompt = `
-Analyze this story text and extract ALL narrative elements.
-Consider the cultural context of ${language}.
+const getLanguageConfig = (language) => {
+  switch(language) {
+    case 'de-CH':
+      return {
+        culturalContext: 'Swiss-German humor and directness',
+        narrativeStyle: 'Detailed, methodical progression',
+        characterTypes: 'Reserved but warm personalities'
+      };
+    case 'zh-CN':
+      return {
+        culturalContext: 'Collective harmony, family respect', 
+        narrativeStyle: 'Circular storytelling, moral lessons',
+        characterTypes: 'Duty-driven, ancestral wisdom'
+      };
+    // 9 languages with cultural intelligence
+  }
+};
 
-Text: ${chapterText}
-
-Extract:
-1. Characters (humans, animals, AI, spirits, anything with agency)
-2. Locations (real places, fictional worlds, abstract spaces)
-3. Technologies (tools, magic items, sci-fi devices)
-4. Time markers (when events occur, time jumps)
-5. Key events (plot points that affect future chapters)
-`;
+// Auto-Classification (Fiction vs Non-Fiction)
+const classifyNarrative = (analysis) => {
+  if (analysis.uniqueConcepts.includes('magic')) return 'fiction';
+  if (analysis.mainTheme.includes('historical')) return 'non-fiction';
+  return 'fiction'; // Default
+};
 ```
 
-**The Problem:** Stories in Chapter 10 forget characters from Chapter 2.  
-**The Solution:** Every chapter updates the "story DNA" with new entities.  
-**The Result:** Characters stay consistent across 20+ chapters in any language.
+**The Magic:** User says "Harry Potter aber mit Emotionsmagie" → System knows it's German fantasy with emotional magic rules → Template locked with cultural German storytelling patterns.
 
 ### 5. Context Window Juggling
 

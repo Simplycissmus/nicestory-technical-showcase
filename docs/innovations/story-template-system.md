@@ -62,44 +62,126 @@ Once a story starts with a template, those rules are **immutable**:
 - If the world is medieval, smartphones don't exist
 - If time travel is forbidden, no one can travel through time
 
-## User Creation Process
+## The Template Factory: From Idea to Immutable World
 
-### Step 1: Initial Idea
-User provides their story concept:
+### Step 1: Story Idea Analysis (`analyze-story-idea.js`)
+
+User drops in ANY idea:
 ```
 "A story about a young inventor in a steampunk world"
+"Harry Potter aber mit Magie die durch Emotionen funktioniert"
+"Eine Geschichte über einen Jungen der Zeitreisen kann"
 ```
 
-### Step 2: Template Generation
-The system doesn't just "generate a story" - it creates a entire world framework:
+The system analyzes with structured JSON schema:
 
 ```javascript
-async function generateStoryWorld(userIdea) {
-  // First: Analyze the core concept
-  const concept = await analyzeStoryIdea(userIdea);
-  
-  // Second: Define world rules
-  const worldRules = await definePhysicsAndLogic(concept);
-  
-  // Third: Create character archetypes
-  const characters = await buildCharacterFramework(concept, worldRules);
-  
-  // Fourth: Establish narrative boundaries
-  const narrativeRules = await setNarrativeConstraints(concept);
-  
-  // Fifth: Lock the template
-  return createImmutableTemplate({
-    worldRules,
-    characters,
-    narrativeRules,
-    originalIdea: userIdea
-  });
+// From story-analysis.js schema
+{
+  core: {
+    mainIdea: "One sentence summary",
+    targetAudience: "Intended audience", 
+    narrativePotential: "Story potential assessment"
+  },
+  essentials: {
+    mainTheme: "Primary theme",
+    primaryGenre: "Genre classification",
+    mainConflict: "Central conflict",
+    toneAndMood: "Tone and atmosphere",
+    specificElements: {
+      keyCharacters: ["Important characters"],
+      importantSettings: ["Key locations"],
+      keyObjects: ["Significant objects"],
+      uniqueConcepts: ["Unique story concepts"]
+    }
+  },
+  structure: {
+    suggestedAgeRating: "12+",
+    estimatedLength: "medium",
+    complexity: "moderate",
+    branchingPotential: "high"
+  }
 }
 ```
 
-### Step 3: The World Lives
+### Step 2: The Refinement Pipeline (27 Functions!)
 
-Every subsequent generation respects the template:
+From `refine-story-all.js` - dependency orchestration:
+
+```javascript
+// Level 1: Foundation (runs in parallel)
+['refine-age-and-genre']
+
+// Level 2: Core Elements (runs after Level 1)
+['refine-background-info-v2', 'refine-text-content', 'refine-format-settings']
+
+// Level 3: Advanced Features (runs after Level 2) 
+['refine-first-chapter', 'refine-narrative-style', 'refine-voice']
+
+// Each function specializes in ONE aspect of the template
+```
+
+### Step 3: Language & Cultural Intelligence
+
+From `language-utils.js` - stories adapt to cultural context:
+
+```javascript
+const getLanguageConfig = (language) => {
+  switch(language) {
+    case 'de-CH':
+      return {
+        culturalContext: 'Swiss-German humor and directness',
+        narrativeStyle: 'Detailed, methodical progression',
+        characterTypes: 'Reserved but warm personalities'
+      };
+    case 'zh-CN':
+      return {
+        culturalContext: 'Collective harmony, family respect',
+        narrativeStyle: 'Circular storytelling, moral lessons',
+        characterTypes: 'Duty-driven, ancestral wisdom'
+      };
+    // 9 languages with cultural adaptations
+  }
+};
+```
+
+### Step 4: Template vs User Story (Critical Distinction!)
+
+```javascript
+// From analyze-story-idea.js comments:
+// Template Story Creation (by design, not bug):
+// 1. analyze-story-idea → Creates template in 'stories' table (NO userId)
+// 2. User browses templates → Adds to library → Creates entry in 'user_stories_v2'  
+// 3. Chapter generation → Creates chapters in 'user_chapters_v2'
+```
+
+**Templates are universal** - anyone can use them.  
+**User stories are personal** - your choices, your library.
+
+### Step 5: Classification Magic
+
+The system auto-classifies EVERYTHING:
+
+```javascript
+// Fiction vs Non-Fiction detection
+const classifyNarrative = (analysis) => {
+  if (analysis.specificElements.uniqueConcepts.includes('magic') ||
+      analysis.primaryGenre.includes('fantasy') ||
+      analysis.importantSettings.includes('fictional world')) {
+    return 'fiction';
+  }
+  
+  if (analysis.mainTheme.includes('historical') ||
+      analysis.toneAndMood.includes('documentary') ||
+      analysis.targetAudience.includes('educational')) {
+    return 'non-fiction';
+  }
+  
+  return 'fiction'; // Default assumption
+};
+```
+
+### Step 6: The Template Becomes Law
 
 ```javascript
 // When generating Chapter 5
