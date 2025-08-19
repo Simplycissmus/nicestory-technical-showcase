@@ -171,9 +171,9 @@ Projects that started as utilities but became essential infrastructure:
 
 #### [AI Provider Factory](https://github.com/patrickmauro/ai-provider-factory)
 - **What it is**: Database-driven AI orchestration system
-- **Why it exists**: Managing 5+ AI providers was chaos
-- **Impact**: 68% cost reduction, 99.9% reliability
-- **Scale**: 15,000+ requests/day across 44 models
+- **Why it exists**: Managing multiple AI providers was chaos
+- **Real innovation**: Semantic routing ('fast' → best available model)
+- **Impact**: Single API for all providers, configuration via database
 
 ### Frontend
 - **React 18.3** with TypeScript 5.3
